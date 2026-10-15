@@ -1,26 +1,279 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-inter);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+:root {
+  --nls-primary: #52763a;
+  --nls-dark: #36512a;
+  --nls-heading: #23351f;
+  --nls-accent: #628747;
+  --nls-light: #f5f8f0;
+  --nls-border: #cbdcc4;
+  --nls-white: #ffffff;
+
+  --background: var(--nls-light);
+  --foreground: var(--nls-heading);
+
+  --card: var(--nls-white);
+  --card-foreground: var(--nls-heading);
+
+  --popover: var(--nls-white);
+  --popover-foreground: var(--nls-heading);
+
+  --primary: var(--nls-primary);
+  --primary-foreground: var(--nls-white);
+
+  --secondary: var(--nls-light);
+  --secondary-foreground: var(--nls-dark);
+
+  --muted: var(--nls-light);
+  --muted-foreground: #596653;
+
+  --accent: var(--nls-accent);
+  --accent-foreground: var(--nls-white);
+
+  --destructive: #b42318;
+  --border: var(--nls-border);
+  --input: var(--nls-border);
+  --ring: var(--nls-accent);
+
+  --chart-1: var(--nls-primary);
+  --chart-2: var(--nls-accent);
+  --chart-3: #87a975;
+  --chart-4: #a9bf98;
+  --chart-5: var(--nls-dark);
+
+  --radius: 0.75rem;
+
+  --sidebar: #1b2a17;
+  --sidebar-foreground: var(--nls-white);
+  --sidebar-primary: #dcebd2;
+  --sidebar-primary-foreground: var(--nls-heading);
+  --sidebar-accent: #2c4024;
+  --sidebar-accent-foreground: var(--nls-white);
+  --sidebar-border: rgb(255 255 255 / 12%);
+  --sidebar-ring: #dcebd2;
+}
+
+
+.dark {
+  --background: #142011;
+  --foreground: #f5f8f0;
+
+  --card: #1b2a17;
+  --card-foreground: #f5f8f0;
+
+  --popover: #1b2a17;
+  --popover-foreground: #f5f8f0;
+
+  --primary: var(--nls-primary);
+  --primary-foreground: #ffffff;
+
+  --secondary: #2c4024;
+  --secondary-foreground: #f5f8f0;
+
+  --muted: #24361e;
+  --muted-foreground: #cbdcc4;
+
+  --accent: #36512a;
+  --accent-foreground: #f5f8f0;
+
+  --destructive: #f97066;
+  --border: rgb(203 220 196 / 20%);
+  --input: rgb(203 220 196 / 24%);
+  --ring: #87a975;
+
+  --chart-1: #87a975;
+  --chart-2: #a9bf98;
+  --chart-3: #52763a;
+  --chart-4: #cbdcc4;
+  --chart-5: #36512a;
+
+  --sidebar: #101a0e;
+  --sidebar-foreground: #f5f8f0;
+  --sidebar-primary: #dcebd2;
+  --sidebar-primary-foreground: #23351f;
+  --sidebar-accent: #24361e;
+  --sidebar-accent-foreground: #f5f8f0;
+  --sidebar-border: rgb(203 220 196 / 16%);
+  --sidebar-ring: #87a975;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  :where(a, button, summary):focus-visible {
+    outline: 2px solid var(--nls-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--nls-primary);
+    color: white;
+  }
+}
+
+/* New Leaf Skills brand utilities */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #dcebd2;
+  color: var(--nls-dark);
+}
+
+.nls-gradient {
+  background: linear-gradient(135deg, var(--nls-dark), var(--nls-primary));
+}
+
+.nls-gradient-text {
+  background: linear-gradient(90deg, var(--nls-dark), var(--nls-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nls-card {
+  border: 1px solid var(--nls-border);
+  border-radius: 20px;
+  background: var(--nls-white);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.nls-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 38px rgb(82 118 58 / 12%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes hero-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-image-enter {
+  from {
+    opacity: 0.65;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-slide-content {
+  animation: hero-content-enter 550ms ease-out both;
+}
+
+.hero-slide-image {
+  animation: hero-image-enter 650ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-content,
+  .hero-slide-image {
+    animation: none;
+  }
+}
+
+@keyframes hero-image-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-slide-image {
+  animation: hero-image-enter 700ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-image {
+    animation: none;
+  }
 }
